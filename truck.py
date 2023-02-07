@@ -3,6 +3,7 @@ import csv
 import numpy as numpy
 
 
+# Truck class
 class Truck:
 
     def __init__(self, capacity, speed, load, packages):
@@ -11,7 +12,7 @@ class Truck:
         self.load = load
         self.packages = packages
 
-    # def insert(self, package):
+    # def insert(self, package):r
 
     def __str__(self):
         return "%s, %s, %s, %s" % (self.capacity, self.speed, self.load, self.packages)
@@ -40,3 +41,9 @@ def get_mileage(row, column):
     if mileage == '':
         mileage = distance_2dlist[column][row]
     return float(mileage)
+
+
+# truck departure times, truck 3 departs after truck one returns
+truck1_depart = ['8:00:00']
+truck2_depart = ['9:05:00']
+truck3_depart = ['11:00:00']
