@@ -17,6 +17,7 @@ class HashTable:
         bucket = hash(key) % len(self.table)
         bucket_list = self.table[bucket]
         # updates if found
+        print(key, item)
         for k_val in bucket_list:
             if k_val[0] == key:
                 k_val[1] = item

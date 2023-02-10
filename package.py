@@ -22,80 +22,70 @@ class Package:
                                                        self.mass, self.special, self.status)
 
 
+truck_1 = []
+truck_2 = []
+truck_3 = []
+
+
 def read_package_data(filename):
     with open(filename) as package_file:
         package_data = csv.reader(package_file, delimiter=',')
         next(package_data)
-        truck_1 = []
-        truck_2 = []
-        truck_3 = []
-        for package in package_data:
-            p_id = int(package[0])
-            p_address = package[1]
-            p_city = package[2]
-            p_state = package[3]
-            p_zipcode = package[4]
-            p_deadline = package[5]
-            p_mass = package[6]
-            p_special = package[7]
+
+        for packages in package_data:
+            p_id = int(packages[0])
+            p_address = packages[1]
+            p_city = packages[2]
+            p_state = packages[3]
+            p_zipcode = packages[4]
+            p_deadline = packages[5]
+            p_mass = packages[6]
+            p_special = packages[7]
             p_status = "At Hub"
-
-            package = (p_id, p_address, p_city, p_state, p_zipcode, p_deadline, p_mass, p_special, p_status)
-
-            if package[0] == 15:
-                truck_1.append(p_id)
-            if package[5] == '10:30 AM' and 'none' in package[7]:
-                truck_1.append(p_id)
-            if package[0] == 19:
-                truck_1.append(p_id)
-            if 'Must be' in package[7]:
-                truck_1.append(p_id)
-            if package[5] == '10:30 AM' and 'Delayed' in package[7]:
-                truck_2.append(p_id)
-            if 'Delayed' in package[7] and package[5] == 'EOD':
-                truck_2.append(p_id)
-            if package[5] == 'EOD' and 'Must be' in package[7] or 'Can only be' in package[7]:
-                truck_2.append(p_id)
-            if package[0] == 9:
-                truck_3.append(p_id)
-            if package[5] == 'EOD' and 'none' in package[7]:
-                if len(truck_3) < 17:
-                    truck_3.append(p_id)
+            # package.append(p_status)
+            p = Package(p_id, p_address, p_city, p_state, p_zipcode, p_deadline, p_mass, p_special, p_status)
+            myHash.insert(p_id, p)
+            if p.id in [15, 19]:
+                truck_1.append(p.id)
+                continue
+            if p.deadline == '10:30 AM' and 'none' in p.special:
+                truck_1.append(p.id)
+            if 'Must be' in p.special:
+                truck_1.append(p.id)
+            if p.deadline == '10:30 AM' and 'Delayed' in p.special:
+                truck_2.append(p.id)
+            if 'Delayed' in p.special and p.deadline == 'EOD':
+                truck_2.append(p.id)
+            if p.deadline == 'EOD' and 'Must be' in p.special or 'Can only be' in p.special:
+                truck_2.append(p.id)
+            if p.id == 9:
+                truck_3.append(p.id)
+                continue
+            if p.deadline == 'EOD' and 'none' in p.special:
+                if len(truck_3) < 16:
+                    truck_3.append(p.id)
                 else:
-                    truck_2.append(p_id)
+                    truck_2.append(p.id)
 
-            myHash.insert(p_id, package)
-    print("\nTruck1")
-    print(truck_1)
-    print("\nTruck2")
-    print(truck_2)
-    print("\nTruck3")
-    print(truck_3)
+    return truck_1, truck_2, truck_3
 
 
 myHash = HashTable()
 
 read_package_data('PackageFile.csv')
 
+print("\nTruck1")
+print(truck_1)
+print("\nTruck2")
+print(truck_2)
+print("\nTruck3")
+print(truck_3)
+
 
 def get_package_data():
     print("PackageFile from Hashtable")
     for i in range(len(myHash.table) + 1):
         print("Key: {} and Package: {}".format(i + 1, myHash.search(i + 1)))
-
-
-# assigns packages to trucks
-# 15 deliver by 9:00, others 10:30
-# truck_1 = [1, 13, 14, 15, 16, 19, 20, 29, 30, 31, 34, 37, 40]
-# truck_1_priority = [15]
-
-
-# 6, 25 deliver by 10:30, others EOD
-# truck_2 = [3, 6, 18, 22, 23, 24, 25, 26, 27, 28, 32, 33, 35, 36, 38, 39]
-# truck_2_priority = [6, 25]
-
-# deliver by EOD, 9 wrong address deliver after 10:20
-# truck_3 = [2, 4, 5, 7, 8, 9, 10, 11, 12, 17, 21]
 
 
 # function to get packages for truck one
