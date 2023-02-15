@@ -1,5 +1,6 @@
 # Package class
 import csv
+import datetime
 
 from hashTable import HashTable
 
@@ -27,6 +28,7 @@ truck_2 = []
 truck_3 = []
 
 
+# function to read package data, create package object, sort packages into truck lists, returns truck lists
 def read_package_data(filename):
     with open(filename) as package_file:
         package_data = csv.reader(package_file, delimiter=',')
@@ -74,14 +76,12 @@ myHash = HashTable()
 
 read_package_data('PackageFile.csv')
 
-print("\nTruck1")
-print(truck_1)
-print("\nTruck2")
-print(truck_2)
-print("\nTruck3")
-print(truck_3)
+print("\nTruck1", truck_1)
+print("\nTruck2", truck_2)
+print("\nTruck3", truck_3)
 
 
+# function to read package data from hashtable
 def get_package_data():
     print("PackageFile from Hashtable")
     for i in range(len(myHash.table) + 1):
