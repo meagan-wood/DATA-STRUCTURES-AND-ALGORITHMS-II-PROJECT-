@@ -16,6 +16,8 @@ class Package:
         self.mass = mass
         self.special = special
         self.status = status
+        self.delivery_time = None
+        self.departure_time = None
 
     def __str__(self):
         return "%s, %s, %s, %s, %s, %s, %s, %s, %s" % (self.id, self.address, self.city,
@@ -68,8 +70,6 @@ def read_package_data(filename):
                     truck_3.append(p.id)
                 else:
                     truck_2.append(p.id)
-
-    return truck_1, truck_2, truck_3
 
 
 myHash = HashTable()

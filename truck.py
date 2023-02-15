@@ -1,8 +1,6 @@
-from package import get_truck3, get_truck1, get_truck2, truck_1
+from package import get_truck3, get_truck1, get_truck2, truck_1, myHash
 import csv
 import datetime
-
-
 
 
 # Truck class
@@ -12,10 +10,10 @@ class Truck:
         self.capacity = capacity
         self.speed = speed
         self.load = load
-        self.depart = depart
+        self.depart = self.time = depart
         self.packages = packages
-
-    # def insert(self, package):r
+        self.current_location = 0
+        self.total_mileage = 0.0
 
     def __str__(self):
         return "%s, %s, %s, %s, %s" % (self.capacity, self.speed, self.load, self.depart, self.packages)
@@ -56,9 +54,39 @@ truck1_depart = datetime.time(8, 0, 0)
 truck2_depart = datetime.time(9, 5, 0)
 truck3_depart = datetime.time(11, 0, 0)
 
-
 truck1_load = Truck(16, 18, True, datetime.time(8, 0, 0), truck_1)
 truck2_load = Truck(16, 18, True, datetime.time(9, 5, 0), get_truck2())
 truck3_load = Truck(16, 18, True, truck3_depart, get_truck3())
 
 print("\nTruckLoads\n", truck1_load.packages, "\n", truck2_load.depart, "\n", truck3_load)
+
+
+def get_closest_distance(truck):
+    min_mileage = 50.0
+    location = 0
+    for i in truck.packages:
+        package = myHash.search(i)
+        value = lookup_address(package.address)
+        if get_mileage(truck.current_location, value) <= min_mileage:
+            min_mileage = get_mileage(truck.current_location, value)
+            location = value
+
+    truck.current_location = location
+    # truck.time =
+    truck.total_mileage += min_mileage
+    for i in truck.packages:
+        package = myHash.search(i)
+        if location == lookup_address(package.address):
+            package.departure_time = truck.depart
+            package.delivery_time = truck.time
+            truck.packages.remove(i)
+
+
+while truck1_load.packages:
+    get_closest_distance(truck1_load)
+while truck2_load.packages:
+    get_closest_distance(truck2_load)
+while truck3_load.packages:
+    get_closest_distance(truck3_load)
+
+print("\nClosest distance", "\n", truck1_load, "\n", truck2_load, "\n", truck3_load)

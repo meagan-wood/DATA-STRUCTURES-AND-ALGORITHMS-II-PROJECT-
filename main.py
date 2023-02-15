@@ -1,5 +1,6 @@
+import truck
 from package import myHash, get_package_data
-from truck import lookup_address, get_mileage, truck1_depart, truck2_depart, truck3_depart
+from truck import lookup_address, get_mileage, truck1_depart, truck2_depart, truck3_depart, get_closest_distance
 
 print("\nSearch:")
 print(myHash.search(22))
@@ -14,3 +15,4 @@ print(get_mileage(lookup_address(truck1_address), lookup_address(package.address
 get_package_data()
 
 print("\nDepart", truck1_depart, truck2_depart, truck3_depart)
+
