@@ -8,7 +8,7 @@ class Truck:
 
     def __init__(self, capacity, speed, load, depart, packages):
         self.capacity = capacity
-        self.speed = speed
+        self.speed = 3.3  # 18mph = 3.3 mins per mile
         self.load = load
         self.depart = self.time = depart
         self.packages = packages
@@ -50,15 +50,13 @@ def get_mileage(row, column):
 
 
 # truck departure times
-truck1_depart = datetime.time(8, 0, 0)
-truck2_depart = datetime.time(9, 5, 0)
-truck3_depart = datetime.time(11, 0, 0)
+truck1_depart = datetime.timedelta(hours=8, minutes=0, seconds=0)
+truck2_depart = datetime.timedelta(hours=9, minutes=5, seconds=0)
+truck3_depart = datetime.timedelta(hours=11, minutes=0, seconds=0)
 
-truck1_load = Truck(16, 18, True, datetime.time(8, 0, 0), truck_1)
-truck2_load = Truck(16, 18, True, datetime.time(9, 5, 0), get_truck2())
+truck1_load = Truck(16, 18, True, truck1_depart, truck_1)
+truck2_load = Truck(16, 18, True, truck2_depart, get_truck2())
 truck3_load = Truck(16, 18, True, truck3_depart, get_truck3())
-
-print("\nTruckLoads\n", truck1_load.packages, "\n", truck2_load.depart, "\n", truck3_load)
 
 
 def get_closest_distance(truck):
@@ -72,14 +70,18 @@ def get_closest_distance(truck):
             location = value
 
     truck.current_location = location
-    # truck.time =
+    delivery_duration = min_mileage * truck.speed
+    truck.time = truck.time + datetime.timedelta(minutes=delivery_duration)  # adds the trip mins to the truck.time
     truck.total_mileage += min_mileage
     for i in truck.packages:
         package = myHash.search(i)
         if location == lookup_address(package.address):
             package.departure_time = truck.depart
             package.delivery_time = truck.time
+            package.status = "delivered"
             truck.packages.remove(i)
+    # print("\nID", package.id, "\nTripMileage", min_mileage, "\nTruckMileage", truck.total_mileage, "\nTime",
+    #               truck.time)
 
 
 while truck1_load.packages:
@@ -89,4 +91,12 @@ while truck2_load.packages:
 while truck3_load.packages:
     get_closest_distance(truck3_load)
 
-print("\nClosest distance", "\n", truck1_load, "\n", truck2_load, "\n", truck3_load)
+
+def total_mileage():
+    mileage = "{0:.2f}".format(truck1_load.total_mileage + truck2_load.total_mileage +
+                               truck3_load.total_mileage, 2)
+    return mileage
+
+
+# print("\nTotalTruck Mileage", "{0:.2f}".format(truck1_load.total_mileage + truck2_load.total_mileage +
+#                                                truck3_load.total_mileage, 2))

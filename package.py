@@ -20,9 +20,9 @@ class Package:
         self.departure_time = None
 
     def __str__(self):
-        return "%s, %s, %s, %s, %s, %s, %s, %s, %s" % (self.id, self.address, self.city,
-                                                       self.state, self.zipcode, self.deadline,
-                                                       self.mass, self.special, self.status)
+        return "%s, %s, %s, %s, %s, %s, %s, %s, %s, %s" % (self.id, self.address, self.city, self.state, self.zipcode,
+                                                           self.deadline, self.mass, self.special, self.status,
+                                                           self.delivery_time)
 
 
 truck_1 = []
@@ -46,7 +46,7 @@ def read_package_data(filename):
             p_mass = packages[6]
             p_special = packages[7]
             p_status = "At Hub"
-            # package.append(p_status)
+            p_delivery_time = None
             p = Package(p_id, p_address, p_city, p_state, p_zipcode, p_deadline, p_mass, p_special, p_status)
             myHash.insert(p_id, p)
             if p.id in [15, 19]:
@@ -75,10 +75,6 @@ def read_package_data(filename):
 myHash = HashTable()
 
 read_package_data('PackageFile.csv')
-
-print("\nTruck1", truck_1)
-print("\nTruck2", truck_2)
-print("\nTruck3", truck_3)
 
 
 # function to read package data from hashtable
