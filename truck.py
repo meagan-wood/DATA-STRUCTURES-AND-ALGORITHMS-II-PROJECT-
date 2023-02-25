@@ -54,7 +54,7 @@ truck1_depart = datetime.timedelta(hours=8, minutes=0, seconds=0)
 truck2_depart = datetime.timedelta(hours=9, minutes=5, seconds=0)
 truck3_depart = datetime.timedelta(hours=11, minutes=0, seconds=0)
 
-truck1_load = Truck(16, 18, True, truck1_depart, truck_1)
+truck1_load = Truck(16, 18, True, truck1_depart, get_truck1())
 truck2_load = Truck(16, 18, True, truck2_depart, get_truck2())
 truck3_load = Truck(16, 18, True, truck3_depart, get_truck3())
 
@@ -97,6 +97,3 @@ def total_mileage():
                                truck3_load.total_mileage, 2)
     return mileage
 
-
-# print("\nTotalTruck Mileage", "{0:.2f}".format(truck1_load.total_mileage + truck2_load.total_mileage +
-#                                                truck3_load.total_mileage, 2))
