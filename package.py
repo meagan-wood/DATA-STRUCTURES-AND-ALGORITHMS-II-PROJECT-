@@ -5,6 +5,7 @@ import datetime
 from hashTable import HashTable
 
 
+# package class
 class Package:
     def __init__(self, package_id, address, city, state, zipcode, deadline, mass, special, status):
         self.id = package_id
@@ -25,6 +26,7 @@ class Package:
                                                            self.delivery_time)
 
 
+# creating empty lists that will be used to store the packages for each truck
 truck_1 = []
 truck_2 = []
 truck_3 = []

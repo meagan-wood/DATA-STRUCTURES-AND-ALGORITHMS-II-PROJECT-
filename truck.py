@@ -74,6 +74,20 @@ def delivered_packages(package):
     return package
 
 
+# Nearest Neighbor algorithm.
+# Sets initial mileage and location.
+# Iterates through the packages, storing the address for the package and the location.
+# Mileage updates as truck moves to new location.
+# Location updates to current location as truck moves.
+# Calculates the trip time using the trip mileage and multiplying it by truck speed(3.3) since it takes 3.3 minutes for
+# every mile traveled if moving at 18mph and adds that to the trucktime.
+# Miles traveled gets added to the total miles for the truck as it travels to each address.
+# If the location matches the package address then the package status is updated to delivered, the time is stored
+# as delivery time and that package is moved from the truck list and added to a truck delivered list to be used
+# in the UI.
+# This will loop through for each truck until the list is empty and then move to the next truck until all trucks
+# are empty.
+#
 def get_closest_distance(truck):
     min_mileage = 50.0
     location = 0
@@ -107,6 +121,7 @@ while truck3_load.packages:
     get_closest_distance(truck3_load)
 
 
+# Function to get the total miles traveled from all the trucks after all packages are delivered.
 def total_mileage():
     mileage = "{0:.2f}".format(truck1_load.total_mileage + truck2_load.total_mileage +
                                truck3_load.total_mileage, 2)
