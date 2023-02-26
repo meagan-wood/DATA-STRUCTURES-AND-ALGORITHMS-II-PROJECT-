@@ -1,4 +1,4 @@
-from package import get_truck3, get_truck1, get_truck2, truck_1, myHash
+from package import get_truck3, get_truck1, get_truck2, truck_1, myHash, truck_2, truck_3
 import csv
 import datetime
 
@@ -34,11 +34,11 @@ def lookup_address(address):
 
 
 # function to get total mileage
-def get_mileage_total(row, column, mileage_total):
-    mileage = distance_data[row][column]
-    if mileage == '':
-        mileage = distance_data[column][row]
-    return mileage_total + float(mileage)
+# def get_mileage_total(row, column, mileage_total):
+#     mileage = distance_data[row][column]
+#     if mileage == '':
+#         mileage = distance_data[column][row]
+#     return mileage_total + float(mileage)
 
 
 # function to get mileage for each delivery
@@ -58,6 +58,21 @@ truck1_load = Truck(16, 18, True, truck1_depart, get_truck1())
 truck2_load = Truck(16, 18, True, truck2_depart, get_truck2())
 truck3_load = Truck(16, 18, True, truck3_depart, get_truck3())
 
+truck1_packages = []
+truck2_packages = []
+truck3_packages = []
+
+
+# function that add the packages to a new list after they are delivered
+def delivered_packages(package):
+    if package in truck1_load.packages:
+        truck1_packages.append(package)
+    elif package in truck2_load.packages:
+        truck2_packages.append(package)
+    elif package in truck3_load.packages:
+        truck3_packages.append(package)
+    return package
+
 
 def get_closest_distance(truck):
     min_mileage = 50.0
@@ -75,13 +90,13 @@ def get_closest_distance(truck):
     truck.total_mileage += min_mileage
     for i in truck.packages:
         package = myHash.search(i)
+
         if location == lookup_address(package.address):
             package.departure_time = truck.depart
             package.delivery_time = truck.time
             package.status = "delivered"
+            delivered_packages(i)
             truck.packages.remove(i)
-    # print("\nID", package.id, "\nTripMileage", min_mileage, "\nTruckMileage", truck.total_mileage, "\nTime",
-    #               truck.time)
 
 
 while truck1_load.packages:
@@ -96,4 +111,3 @@ def total_mileage():
     mileage = "{0:.2f}".format(truck1_load.total_mileage + truck2_load.total_mileage +
                                truck3_load.total_mileage, 2)
     return mileage
-
