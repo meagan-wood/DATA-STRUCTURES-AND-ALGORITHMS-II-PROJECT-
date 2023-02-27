@@ -1,3 +1,4 @@
+
 from package import get_truck3, get_truck1, get_truck2, truck_1, myHash, truck_2, truck_3
 import csv
 import datetime
@@ -91,8 +92,11 @@ def delivered_packages(package):
 def get_closest_distance(truck):
     min_mileage = 50.0
     location = 0
+
     for i in truck.packages:
+
         package = myHash.search(i)
+
         value = lookup_address(package.address)
         if get_mileage(truck.current_location, value) <= min_mileage:
             min_mileage = get_mileage(truck.current_location, value)
@@ -107,6 +111,7 @@ def get_closest_distance(truck):
 
         if location == lookup_address(package.address):
             package.departure_time = truck.depart
+            package.status = "EN ROUTE", truck.depart
             package.delivery_time = truck.time
             package.status = "DELIVERED"
             delivered_packages(i)
