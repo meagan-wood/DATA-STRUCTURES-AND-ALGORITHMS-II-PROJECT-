@@ -108,7 +108,7 @@ def get_closest_distance(truck):
         if location == lookup_address(package.address):
             package.departure_time = truck.depart
             package.delivery_time = truck.time
-            package.status = "delivered"
+            package.status = "DELIVERED"
             delivered_packages(i)
             truck.packages.remove(i)
 

@@ -47,65 +47,85 @@ def app():
                                    seconds=convert_time.second)  # converting time to timedelta
             print("\nTime Entered:", input_time)  # displaying the time the user entered
             if input_time < truck.truck1_depart:  # comparing time with truck depart time displays truck depart times
-                print("\nTrucks are still at the hub.", "\nTruck 1 departs at:", truck.truck1_depart,
-                      "\nTruck 2 departs at:", truck.truck2_depart, "\nTruck 3 departs at:", truck.truck3_depart)
+                print("\nTrucks and ALL packages are still at the hub.", "\nTruck 1 departs at", truck.truck1_depart,
+                      "and contains the following packages", truck.truck1_packages,
+                      "\nTruck 2 departs at", truck.truck2_depart, "and contains the following packages",
+                      truck.truck2_packages, "\nTruck 3 departs at", truck.truck3_depart,
+                      "and contains the following packages", truck.truck3_packages)
+            elif input_time == truck.truck1_depart:
+                print("\nTruck 1 is now leaving the hub.")
+                print("\nPakages 'EN ROUTE' on truck 1:", truck.truck1_packages)
+                print("\nTruck 2 will depart at", truck.truck2_depart, "packages 'AT HUB'", truck.truck2_packages,
+                      "\nTruck 3 will depart at", truck.truck3_depart, "packages 'AT HUB'", truck.truck3_packages)
             elif input_time > truck.truck1_depart:
                 if input_time < truck.truck2_depart:  # checking input time with truck times
-                    print("\nTruck 1 is en route", "\nPackages delivered:")
+                    print("\nPackages delivered:\n")
                     for count in range(1, 41):  # comparing time to delivery times to return status/times of packages
                         package_i = myHash.search(count)  # searching myHash
                         time = package_i.delivery_time  # getting delivery time of package
                         if input_time > time:  # comparing input time to delivery time of package
-                            print("Package:", package_i.id, "Delivered at:", time)
+                            print("PackageID:", package_i.id, "\nAddress:", package_i.address, package_i.city,
+                                  package_i.state, package_i.zipcode, "\nDeadline:", package_i.deadline,
+                                  "\nMass:", package_i.mass, "\nNotes:", package_i.special, "\nStatus:", package_i.status,
+                                  "\nTime Delivered:", package_i.delivery_time, "\n")
                             truck.truck1_packages.remove(package_i.id)  # removing the package from truck package list
-                    print("\nTruck 1 packages still in route", truck.truck1_packages)
-                    print("\nTruck 2 will depart at:", truck.truck2_depart, "\nTruck 3 will depart at:",
-                          truck.truck3_depart)
+                    print("\nTruck 1 packages still 'EN ROUTE'", truck.truck1_packages)
+                    print("\nTruck 2 will depart at", truck.truck2_depart, "packages 'AT HUB'", truck.truck2_packages,
+                          "\nTruck 3 will depart at", truck.truck3_depart, "packages 'AT HUB'", truck.truck3_packages)
                 elif input_time == truck.truck2_depart:
-                    print("\nTruck 2 is now leaving the hub, no packages from truck 2 have been delivered yet.")
-                    print("\nTruck 1 is en route", "\nPackages delivered:")
+                    print("\nTruck 2 is now leaving the hub.")
+                    print("\nPackages delivered:\n")
                     for count in range(1, 41):
                         package_i = myHash.search(count)
                         time = package_i.delivery_time
                         if input_time > time:
-                            print("Package:", package_i.id, "Delivered at:", time)
-                            truck.truck1_packages.remove(package_i.id)
-                    print("\nTruck 1 packages still in route", truck.truck1_packages)
-                    print("\nTruck 2 packages are now in route:", truck.truck2_packages)
-                    print("\nTruck 3 will depart at:", truck.truck3_depart)
+                            print("PackageID:", package_i.id, "\nAddress:", package_i.address, package_i.city,
+                                  package_i.state, package_i.zipcode, "\nDeadline:", package_i.deadline,
+                                  "\nMass:", package_i.mass, "\nNotes:", package_i.special, "\nStatus:",
+                                  package_i.status, "\nTime Delivered:", package_i.delivery_time, "\n")
+                            truck.truck1_packages.remove(package_i.id)  # removing the package from truck package list
+                    print("\nTruck 1 packages still 'EN ROUTE'", truck.truck1_packages)
+                    print("\nTruck 2 packages are now 'EN ROUTE'", truck.truck2_packages)
+                    print("\nTruck 3 will depart at", truck.truck3_depart, "packages 'AT HUB':", truck.truck3_packages)
                 elif input_time > truck.truck2_depart:
                     if input_time < truck.truck3_depart:
-                        print("\nTruck 2 is en route", "\nPackages delivered:")
+                        print("\nPackages delivered:\n")
                         for count in range(1, 41):
                             package_i = myHash.search(count)  # searching myHash
                             time = package_i.delivery_time  # getting delivery time of package
                             if input_time > time:  # comparing input time to delivery time of package
-                                print("Package:", package_i.id, "Delivered at:", time)
+                                print("PackageID:", package_i.id, "\nAddress:", package_i.address, package_i.city,
+                                      package_i.state, package_i.zipcode, "\nDeadline:", package_i.deadline,
+                                      "\nMass:", package_i.mass, "\nNotes:", package_i.special, "\nStatus:",
+                                      package_i.status, "\nTime Delivered:", package_i.delivery_time, "\n")
                                 # removing the package from the package list where it is found
                                 if package_i.id in truck.truck1_packages:
                                     truck.truck1_packages.remove(package_i.id)
                                 elif package_i.id in truck.truck2_packages:
                                     truck.truck2_packages.remove(package_i.id)
                         # displaying status of packages/trucks
-                        print("\nTruck 1 packages still in route", truck.truck1_packages)
-                        print("\nTruck 2 packages still in route", truck.truck2_packages)
-                        print("\nTruck 3 will depart at:", truck.truck3_depart)
+                        print("\nTruck 1 packages still 'EN ROUTE'", truck.truck1_packages)
+                        print("\nTruck 2 packages still 'EN ROUTE'", truck.truck2_packages)
+                        print("\nTruck 3 will depart at", truck.truck3_depart, "packages 'AT HUB':", truck.truck3_packages)
 
                     if input_time == truck.truck3_depart:
-                        print("\nTruck 3 is now leaving the hub, no packages from truck 3 have been delivered yet.")
-                        print("\nPackages delivered:")
+                        print("\nTruck 3 is now leaving the hub.")
+                        print("\nPackages delivered:\n")
                         for count in range(1, 41):
                             package_i = myHash.search(count)  # searching myHash
                             time = package_i.delivery_time  # getting delivery time of package
                             if input_time > time:  # comparing input time to delivery time of package
-                                print("Package:", package_i.id, "Delivered at:", time)
+                                print("PackageID:", package_i.id, "\nAddress:", package_i.address, package_i.city,
+                                      package_i.state, package_i.zipcode, "\nDeadline:", package_i.deadline,
+                                      "\nMass:", package_i.mass, "\nNotes:", package_i.special, "\nStatus:",
+                                      package_i.status, "\nTime Delivered:", package_i.delivery_time, "\n")
                                 if package_i.id in truck.truck1_packages:
                                     truck.truck1_packages.remove(package_i.id)  # removing the package from package list
                                 elif package_i.id in truck.truck2_packages:
                                     truck.truck2_packages.remove(package_i.id)
                                 elif package_i.id in truck.truck3_packages:
                                     truck.truck3_packages.remove(package_i.id)
-                        print("\nTruck 3 packages, now en route", truck.truck3_packages)
+                        print("\nTruck 3 packages now 'EN ROUTE'", truck.truck3_packages)
                         print("\nTruck 1 completed all deliveries:", truck.truck1_packages,
                               "\nTotal miles for Truck 1:", "{0:.2f}".format(truck.truck1_load.total_mileage, 2))
                         print("\nTruck 2 completed all deliveries:", truck.truck2_packages,
@@ -116,7 +136,10 @@ def app():
                             package_i = myHash.search(count)  # searching myHash
                             time = package_i.delivery_time  # getting delivery time of package
                             if input_time > time:  # comparing input time to delivery time of package
-                                print("Package:", package_i.id, "Delivered at:", time)
+                                print("PackageID:", package_i.id, "\nAddress:", package_i.address, package_i.city,
+                                      package_i.state, package_i.zipcode, "\nDeadline:", package_i.deadline,
+                                      "\nMass:", package_i.mass, "\nNotes:", package_i.special, "\nStatus:",
+                                      package_i.status, "\nTime Delivered:", package_i.delivery_time, "\n")
                                 if package_i.id in truck.truck1_packages:
                                     truck.truck1_packages.remove(package_i.id)  # removing the package from package list
                                 elif package_i.id in truck.truck2_packages:
@@ -132,7 +155,7 @@ def app():
                                   "\nTotal miles for Truck 3:", "{0:.2f}".format(truck.truck3_load.total_mileage, 2))
                             print("\nTotal miles for all trucks:", truck.total_mileage())
                         else:  # if truck3 package list is not empty
-                            print("\nTruck 3 packages remaining:", truck.truck3_packages)
+                            print("\nTruck 3 packages still 'EN ROUTE':", truck.truck3_packages)
                             print("\nTruck 1 completed all deliveries:", truck.truck1_packages,
                                   "\nTotal miles for Truck 1:", "{0:.2f}".format(truck.truck1_load.total_mileage, 2))
                             print("\nTruck 2 completed all deliveries:", truck.truck2_packages,
