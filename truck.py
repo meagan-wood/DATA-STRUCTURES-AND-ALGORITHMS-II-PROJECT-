@@ -1,4 +1,3 @@
-
 from package import get_truck3, get_truck1, get_truck2, truck_1, myHash, truck_2, truck_3
 import csv
 import datetime
@@ -32,14 +31,6 @@ def lookup_address(address):
         if address in row[2]:
             return int(row[0])
     print('Address not found', address)
-
-
-# function to get total mileage
-# def get_mileage_total(row, column, mileage_total):
-#     mileage = distance_data[row][column]
-#     if mileage == '':
-#         mileage = distance_data[column][row]
-#     return mileage_total + float(mileage)
 
 
 # function to get mileage for each delivery
@@ -93,29 +84,26 @@ def get_closest_distance(truck):
     min_mileage = 50.0
     location = 0
 
-    for i in truck.packages:
+    for i in truck.packages:  # iterates through the packages
+        package = myHash.search(i)  # gets the package from the hash table
+        value = lookup_address(package.address)  # gets the address
+        if get_mileage(truck.current_location, value) <= min_mileage:  # gets the mileage from truck location to address
+            min_mileage = get_mileage(truck.current_location, value)  # sets min mileage to mileage from above
+            location = value  # set location to the new address
 
+    truck.current_location = location  # updates the trucks current location to new location
+    delivery_duration = min_mileage * truck.speed  # calculating the time spent traveling to location
+    truck.time = truck.time + datetime.timedelta(minutes=delivery_duration)  # adds the trip time to the truck.time
+    truck.total_mileage += min_mileage  # adds the trip mileage to the trucks total mileage
+    for i in truck.packages:  # iterates through the packages to find all packages for that location to deliver
         package = myHash.search(i)
-
-        value = lookup_address(package.address)
-        if get_mileage(truck.current_location, value) <= min_mileage:
-            min_mileage = get_mileage(truck.current_location, value)
-            location = value
-
-    truck.current_location = location
-    delivery_duration = min_mileage * truck.speed
-    truck.time = truck.time + datetime.timedelta(minutes=delivery_duration)  # adds the trip mins to the truck.time
-    truck.total_mileage += min_mileage
-    for i in truck.packages:
-        package = myHash.search(i)
-
         if location == lookup_address(package.address):
             package.departure_time = truck.depart
-            package.status = "EN ROUTE", truck.depart
-            package.delivery_time = truck.time
-            package.status = "DELIVERED"
+            # package.status = "EN ROUTE", truck.depart # updates truck status
+            package.delivery_time = truck.time  # records package delivery time
+            package.status = "DELIVERED"  # updates package status
             delivered_packages(i)
-            truck.packages.remove(i)
+            truck.packages.remove(i)  # removes package from truck list
 
 
 while truck1_load.packages:

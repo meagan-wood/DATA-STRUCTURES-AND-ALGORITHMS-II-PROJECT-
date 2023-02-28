@@ -8,19 +8,19 @@
 #
 import datetime
 from datetime import datetime, timedelta
-import package
 import truck
 from package import myHash
 
 
-# UI to get package information when user enters package ID, or a specific time.
-# Entering a package ID will return all the information for that specified package.
+# Creates the UI to get package information.
+# Entering a package ID will return all the information for that package at the provided time.
 # Entering a time will return all trucks and packages' status,
-# If the package has been delivered, will return the delivery time with the package ID.
+# if the package has been delivered, will return the delivery time with the package ID.
+# Option 3 will return ALL the packages with their information and the delivery time after all deliveries are complete
 # Error handling for invalid entries or format.
 def app():
     print('\nWelcome to the WGUPS!')
-    print("\nDeparture times and packages assigned to each truck:", "\nTruck 1:", truck.truck1_depart,
+    print("\nTruck departure times and packages assigned to each truck:", "\nTruck 1:", truck.truck1_depart,
           truck.truck1_packages, "\nTruck 2:", truck.truck2_depart, truck.truck2_packages,
           "\nTruck 3:", truck.truck3_depart, truck.truck3_packages)
     print('\nThe total mileage to deliver all packages:', truck.total_mileage(), 'miles.')
@@ -132,7 +132,7 @@ def app():
                         print("\nTruck 3 will depart at", truck.truck3_depart, "packages 'AT HUB':",
                               truck.truck3_packages)
 
-                    if input_time == truck.truck3_depart: # checking input time is equal to truck 3 depart time
+                    if input_time == truck.truck3_depart:  # checking input time is equal to truck 3 depart time
                         print("\nTruck 3 is now leaving the hub.")
                         print("\nPackages delivered:\n")
                         # iterating through packages compares input time to delivery time
@@ -205,7 +205,7 @@ def app():
             print(e)
 
     elif selection == "3":
-        # iterating through packages to print package information
+        # iterating through packages to print package information for each package
         for count in range(1, 41):
             package_i = myHash.search(count)  # searching myHash
             print("PackageID:", package_i.id, "\nAddress:", package_i.address, package_i.city,
