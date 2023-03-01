@@ -39,6 +39,9 @@ def app():
         else:
             entered_time = input("Please enter the time using Military Time in the 'HH:MM' format:")
             convert_time = datetime.strptime(entered_time, "%H:%M")  # converting user input to datetime
+            input_time = timedelta(hours=convert_time.hour, minutes=convert_time.minute)
+            print("\nTime Entered:", input_time)
+            convert_time = datetime.strptime(entered_time, "%H:%M")  # converting user input to datetime
             input_time = timedelta(hours=convert_time.hour, minutes=convert_time.minute)  # converting time to timedelta
             if input_time < package_info.departure_time:  # comparing input time to package depart time
                 package_info.status = "AT HUB"  # updating status if input time < departure time
