@@ -86,16 +86,16 @@ def get_package_data():
         print("Key: {} and Package: {}".format(i + 1, myHash.search(i + 1)))
 
 
-# function to get packages for truck one
+# function to get packages assigned to truck one
 def get_truck1():
     return truck_1
 
 
-# function to get packages for truck two
+# function to get packages assigned to truck two
 def get_truck2():
     return truck_2
 
 
-# function to get packages for truck three
+# function to get packages assigned to truck three
 def get_truck3():
     return truck_3

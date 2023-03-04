@@ -55,7 +55,7 @@ truck2_packages = []
 truck3_packages = []
 
 
-# function that add the packages to a new list after they are delivered
+# function that adds the packages to a new list after they are delivered
 def delivered_packages(package):
     if package in truck1_load.packages:
         truck1_packages.append(package)
@@ -99,9 +99,8 @@ def get_closest_distance(truck):
         package = myHash.search(i)
         if location == lookup_address(package.address):
             package.departure_time = truck.depart
-            # package.status = "EN ROUTE", truck.depart # updates truck status
             package.delivery_time = truck.time  # records package delivery time
-            package.status = "DELIVERED"  # updates package status
+            package.status = "Delivered"  # updates package status
             delivered_packages(i)
             truck.packages.remove(i)  # removes package from truck list
 
