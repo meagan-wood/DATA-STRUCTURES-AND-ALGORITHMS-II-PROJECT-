@@ -10,7 +10,7 @@ Your task is to determine the best algorithm, write code, and present a solution
 While you work on this assessment, take into consideration the specific delivery time expected for each package and the possibility that the delivery requirements—including the expected delivery time—can be changed by management at any time and at any point along the chosen route. In addition, you should keep in mind that the supervisor should be able to see, at assigned points, the progress of each truck and its packages by any of the variables listed in the “WGUPS Package File,” including what has been delivered and what time the delivery occurred. 
 The intent is to use this solution (program) for this specific location and to use the same program in many cities in each state where WGU has a presence. As such, you will need to include detailed comments, following the industry-standard Python style guide, to make your code easy to read and to justify the decisions you made while writing your program. 
 
-Assumptions: 
+### ASSUMPTIONS: 
 - Each truck can carry a maximum of 16 packages. 
 - Trucks travel at an average speed of 18 miles per hour. 
 - Trucks have an “infinite amount of gas” with no need to stop. 
@@ -22,11 +22,12 @@ Assumptions:
 - The package ID is unique; there are no collisions. 
 - No further assumptions exist or are allowed.
 
-REQUIREMENTS:
-<br>Your submission must be your original work. No more than a combined total of 30% of the submission and no more than a 10% match to any one individual source can be directly quoted or closely paraphrased from sources, even if cited correctly. An originality report is provided when you submit your task that can be used as a guide. 
+### REQUIREMENTS:
+Your submission must be your original work. No more than a combined total of 30% of the submission and no more than a 10% match to any one individual source can be directly quoted or closely paraphrased from sources, even if cited correctly. An originality report is provided when you submit your task that can be used as a guide. 
 You must use the rubric to direct the creation of your submission because it provides detailed criteria that will be used to evaluate your work. Each requirement below may be evaluated by more than one rubric aspect. The rubric aspect titles may contain hyperlinks to relevant portions of the course. 
+
 ## Section 1: Programming/Coding 
-<br>A. Identify the algorithm that will be used to create a program to deliver the packages and meet all requirements specified in the scenario. 
+A. Identify the algorithm that will be used to create a program to deliver the packages and meet all requirements specified in the scenario. 
 
 <br>B. Write a core algorithm overview, using the sample given, in which you do the following: 
 - Comment using pseudocode to show the logic of the algorithm applied to this software solution.
@@ -71,7 +72,7 @@ status.
 
 <br>H. Run your code and provide screenshots to capture the complete execution of your code. 
 ## Section 2: Annotations 
-<br>I. Justify your choice of algorithm by doing the following: 
+I. Justify your choice of algorithm by doing the following: 
 1. Describe at least two strengths of the algorithm you chose.
 2. Verify that the algorithm you chose meets all the criteria and requirements given in the scenario.
 3. Identify two other algorithms that could be used and would have met the criteria and requirements given in the scenario.
